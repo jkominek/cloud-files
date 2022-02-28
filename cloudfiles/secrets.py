@@ -121,8 +121,9 @@ def aws_credentials(bucket = '', service = 'aws'):
         'AWS_ACCESS_KEY_ID': os.environ['AWS_ACCESS_KEY_ID'],
         'AWS_SECRET_ACCESS_KEY': os.environ['AWS_SECRET_ACCESS_KEY'],
       }
-    if 'AWS_DEFAULT_REGION' in os.environ:
-      aws_credentials['AWS_DEFAULT_REGION'] = os.environ['AWS_DEFAULT_REGION']
+    for k in ('AWS_DEFAULT_REGION', 'AWS_SESSION_TOKEN'):
+      if k in os.environ:
+        aws_credentials[k] = os.environ[k]
 
   AWS_CREDENTIALS_CACHE[service][bucket] = aws_credentials
   return aws_credentials
