@@ -258,10 +258,11 @@ class CloudFiles:
     self.green = bool(green)
     self.parallel = int(parallel)
     self.request_payer = request_payer
+    self.endpoint = endpoint
 
     self._path = paths.extract(cloudpath)
-    if endpoint:
-      self._path = paths.ExtractedPath(host=endpoint, **self._path)
+    # removed some garbage suggesting cloud-files authors only
+    # think endpoints can consist of a host
     self._interface_cls = get_interface_class(self._path.protocol)
 
     if self._path.protocol == 'mem':
@@ -277,7 +278,8 @@ class CloudFiles:
     return self._interface_cls(
       self._path, 
       secrets=self.secrets,
-      request_payer=self.request_payer
+      request_payer=self.request_payer,
+      endpoint=self.endpoint
     )
 
   def abspath(self, path):
