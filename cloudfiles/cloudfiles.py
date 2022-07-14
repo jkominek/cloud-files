@@ -18,7 +18,7 @@ import posixpath
 import re
 import types
 
-import orjson
+import json
 import pathos.pools
 from tqdm import tqdm
 
@@ -441,7 +441,7 @@ class CloudFiles:
       content = content['content']
       if content is None:
         return None
-      return orjson.loads(content.decode('utf8'))
+      return json.loads(content.decode('utf8'))
 
     desc = self.progress if isinstance(self.progress, str) else "Downloading JSON"
 

@@ -1,5 +1,5 @@
 from collections import namedtuple
-import orjson
+import json
 import os.path
 import posixpath
 import re
@@ -39,7 +39,7 @@ def update_aliases_from_file():
 
   if os.path.exists(ALIAS_FILE) and os.path.getsize(ALIAS_FILE) > 0:
     with open(ALIAS_FILE, "rt") as f:
-      aliases = orjson.loads(f.read())
+      aliases = json.loads(f.read())
 
   ALIASES_FROM_FILE = aliases
 
